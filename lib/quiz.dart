@@ -12,7 +12,7 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  var activePage = 'start_page';
+  String activePage = 'start_page';
 
   void switchPage() {
     setState(() {
@@ -22,6 +22,11 @@ class _QuizState extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
+    Widget pageWidget = StartPage(switchPage);
+
+    if (activePage == 'question_page') {
+      pageWidget = const QuestionPage();
+    }
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -36,9 +41,7 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: activePage == 'start_page'
-              ? StartPage(switchPage)
-              : const QuestionPage(),
+          child: pageWidget,
         ),
       ),
     );
