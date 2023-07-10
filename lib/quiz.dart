@@ -12,17 +12,11 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  late Widget activePage;
-
-  @override
-  void initState() {
-    activePage = StartPage(switchPage);
-    super.initState();
-  }
+  var activePage = 'start_page';
 
   void switchPage() {
     setState(() {
-      activePage = const QuestionPage();
+      activePage = 'question_page';
     });
   }
 
@@ -42,7 +36,9 @@ class _QuizState extends State<Quiz> {
               end: Alignment.bottomRight,
             ),
           ),
-          child: activePage,
+          child: activePage == 'start_page'
+              ? StartPage(switchPage)
+              : const QuestionPage(),
         ),
       ),
     );
