@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:my_quiz_app/answer_button.dart';
+import 'package:my_quiz_app/data/questions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuestionPage extends StatefulWidget {
-  const QuestionPage({super.key});
+  final void Function(String answer) onSelectAnswer;
+
+  const QuestionPage({required this.onSelectAnswer, super.key});
 
   @override
   State<QuestionPage> createState() {
@@ -10,29 +15,40 @@ class QuestionPage extends StatefulWidget {
 }
 
 class _QuestionPageState extends State<QuestionPage> {
+  var currentQuestionIdx = 0;
+
+  void answerQuestion(String selectedAnswer) {
+    widget.onSelectAnswer(selectedAnswer);
+    setState(() {
+      currentQuestionIdx++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentQuestion = questions[currentQuestionIdx];
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text('The question...'),
-        const SizedBox(height: 30),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Answer 1'),
+        Text(
+          currentQuestion.question,
+          style: GoogleFonts.nanumMyeongjo(
+            color: Colors.white,
+            fontSize: 30,
+          ),
+          textAlign: TextAlign.center,
         ),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Answer 2'),
+        const SizedBox(
+          height: 30,
         ),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Answer 3'),
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Answer 4'),
-        ),
+        ...currentQuestion.getShuffuledAnswers().map(
+              (item) => AnswerButton(
+                answerString: item,
+                onTap: () => answerQuestion(item),
+              ),
+            )
       ],
     );
   }

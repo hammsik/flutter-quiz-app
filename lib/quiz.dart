@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_quiz_app/data/questions.dart';
 import 'package:my_quiz_app/layout_question.dart';
 import 'package:my_quiz_app/layout_start.dart';
+import 'package:my_quiz_app/layout_result.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -12,7 +14,8 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  String activePage = 'start_page';
+  List<String> selectedAnswers = [];
+  var activePage = 'start_page';
 
   void switchPage() {
     setState(() {
@@ -20,17 +23,31 @@ class _QuizState extends State<Quiz> {
     });
   }
 
+  void chooseAnswer(String answer) {
+    selectedAnswers.add(answer);
+
+    if (selectedAnswers.length == questions.length) {
+      setState(() {
+        activePage = 'result_page';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget pageWidget = StartPage(switchPage);
 
     if (activePage == 'question_page') {
-      pageWidget = const QuestionPage();
+      pageWidget = QuestionPage(onSelectAnswer: chooseAnswer);
+    } else if (activePage == 'result_page') {
+      pageWidget = ResultPage(chosenAnswers: selectedAnswers);
     }
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
           alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
