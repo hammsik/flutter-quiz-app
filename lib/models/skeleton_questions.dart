@@ -1,8 +1,8 @@
 class QuizQuestion {
-  final String question;
+  final String text;
   final List<String> answers;
 
-  const QuizQuestion(this.question, this.answers);
+  const QuizQuestion(this.text, this.answers);
 
   List<String> getShuffuledAnswers() {
     final shuffledList = List.of(answers);

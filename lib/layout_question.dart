@@ -27,13 +27,14 @@ class _QuestionPageState extends State<QuestionPage> {
   @override
   Widget build(BuildContext context) {
     final currentQuestion = questions[currentQuestionIdx];
+    // question는 data폴더의 "questions"리스트
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          currentQuestion.question,
+          currentQuestion.text,
           style: GoogleFonts.nanumMyeongjo(
             color: Colors.white,
             fontSize: 30,
