@@ -4,8 +4,13 @@ import 'package:my_quiz_app/question_summary.dart';
 
 class ResultPage extends StatelessWidget {
   final List<String> chosenAnswers;
+  final void Function() restart;
 
-  const ResultPage({super.key, required this.chosenAnswers});
+  const ResultPage({
+    super.key,
+    required this.chosenAnswers,
+    required this.restart,
+  });
 
   List<Map<String, Object>> getSummary() {
     final List<Map<String, Object>> summary = [];
@@ -26,20 +31,28 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummary();
+    final numTotalQuestions = questions.length;
+    final numCorrectQuestions = summaryData
+        .where((data) => data['correct_answer'] == data['chosen_answer'])
+        .length;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('You answerd X out of Y questions correctly!'),
+        Text(
+            'You answerd $numCorrectQuestions out of $numTotalQuestions correctly!'),
         const SizedBox(
           height: 30,
         ),
-        QuestionSummary(getSummary()),
+        QuestionSummary(summaryData),
         const SizedBox(
           height: 30,
         ),
         TextButton(
-          onPressed: () {},
-          child: const Text('Restart Quiz!'),
+          onPressed: restart,
+          child: const Text('Restart Quiz!',
+              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
         ),
       ],
     );

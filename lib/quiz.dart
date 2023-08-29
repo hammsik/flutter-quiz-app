@@ -18,7 +18,12 @@ class _QuizState extends State<Quiz> {
   var activePage = 'start_page';
 
   void switchPage() {
+    setState(() => activePage = 'question_page');
+  }
+
+  void gotoRestart() {
     setState(() {
+      selectedAnswers = [];
       activePage = 'question_page';
     });
   }
@@ -40,7 +45,8 @@ class _QuizState extends State<Quiz> {
     if (activePage == 'question_page') {
       pageWidget = QuestionPage(onSelectAnswer: chooseAnswer);
     } else if (activePage == 'result_page') {
-      pageWidget = ResultPage(chosenAnswers: selectedAnswers);
+      pageWidget =
+          ResultPage(chosenAnswers: selectedAnswers, restart: gotoRestart);
     }
 
     return MaterialApp(
