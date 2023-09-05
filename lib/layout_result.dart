@@ -12,7 +12,7 @@ class ResultPage extends StatelessWidget {
     required this.restart,
   });
 
-  List<Map<String, Object>> getSummary() {
+  List<Map<String, Object>> get summaryData {
     final List<Map<String, Object>> summary = [];
 
     for (int i = 0; i < questions.length; i++) {
@@ -31,7 +31,6 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData = getSummary();
     final numTotalQuestions = questions.length;
     final numCorrectQuestions = summaryData
         .where((data) => data['correct_answer'] == data['chosen_answer'])

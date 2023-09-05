@@ -44,12 +44,12 @@ class _QuestionPageState extends State<QuestionPage> {
         const SizedBox(
           height: 30,
         ),
-        ...currentQuestion.getShuffuledAnswers().map(
-              (item) => AnswerButton(
-                answerString: item,
-                onTap: () => answerQuestion(item),
-              ),
-            )
+        ...currentQuestion.shuffuledAnswers.map(
+          (item) => AnswerButton(
+            answerString: item,
+            onTap: () => answerQuestion(item),
+          ),
+        )
       ],
     );
   }
