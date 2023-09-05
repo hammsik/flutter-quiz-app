@@ -41,18 +41,22 @@ class ResultPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-            'You answerd $numCorrectQuestions out of $numTotalQuestions correctly!'),
+            'You answerd $numCorrectQuestions out of $numTotalQuestions correctly!',
+            style: (const TextStyle(fontSize: 20, color: Colors.white))),
         const SizedBox(
-          height: 30,
+          height: 40,
         ),
         QuestionSummary(summaryData),
         const SizedBox(
           height: 30,
         ),
-        TextButton(
+        TextButton.icon(
           onPressed: restart,
-          child: const Text('Restart Quiz!',
-              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0))),
+          icon: const Icon(Icons.refresh,
+              color: Color.fromRGBO(255, 255, 255, 1)),
+          label: const Text('Restart Quiz!',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255), fontSize: 20)),
         ),
       ],
     );
